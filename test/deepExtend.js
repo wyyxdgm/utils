@@ -38,7 +38,7 @@ var o2 = {
 	}
 }
 var util = require("util");
-var objectUtils = require("../object");
+var objectUtils = require("../lib/object");
 
 //set the third params as true to override when the types of each others is not the same
 objectUtils.deepExtend(o2, o1, true);
