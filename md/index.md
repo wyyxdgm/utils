@@ -1,2 +1,2 @@
 
-- [mac 技巧](./command-line.md)
+- [mac command-line 技巧](./command-line.md)
