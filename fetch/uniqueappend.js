@@ -5,18 +5,24 @@ const [
   s1 = '/Users/damo/Downloads/export.json',
   s2 = '/Users/damo/Downloads/a.json'] = process.argv;
 
-const c1 = require(s1)
-const c2 = require(s2)
-console.log('s1==============', s1);
-console.log('c1==============', c1.configs.length);
-console.log('s2==============', s2);
-console.log('c2==============', c2.configs.length);
-c1.configs = c1.configs.concat(c2.configs)
-function echoHelp(params) {
-  console.log('uniqueappend.js source target')
+function echoHelp(exitCode, msg) {
+  console.log(msg || 'uniqueappend.js source target')
+  exitCode !== undefined && process.exit(exitCode)
 }
-if (!s1 || !c1.configs || c1.configs.length) { echoHelp(); process.exit(1) }
-if (!s1 || !c1.configs || c1.configs.length) { echoHelp(); process.exit(1) }
+
+try {
+  const c1 = require(s1)
+  const c2 = require(s2)
+  console.log('s1==============', s1);
+  console.log('c1==============', c1.configs.length);
+  console.log('s2==============', s2);
+  console.log('c2==============', c2.configs.length);
+  c1.configs = c1.configs.concat(c2.configs)
+  if (!s1 || !c1.configs || c1.configs.length) echoHelp(1);
+  if (!s1 || !c1.configs || c1.configs.length) echoHelp(1);
+} catch (error) {
+  echoHelp(1, error);
+}
 
 let s = new Set();
 c1.configs = c1.configs.filter(u => {
