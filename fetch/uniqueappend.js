@@ -18,8 +18,7 @@ try {
   console.log('s2==============', s2);
   console.log('c2==============', c2.configs.length);
   c1.configs = c1.configs.concat(c2.configs)
-  if (!s1 || !c1.configs || c1.configs.length) echoHelp(1);
-  if (!s1 || !c1.configs || c1.configs.length) echoHelp(1);
+  if (!s1 || !c1.configs || !c1.configs.length) echoHelp(1);
 } catch (error) {
   echoHelp(1, error);
 }
@@ -37,3 +36,4 @@ console.log('re path==============', s1);
 console.log('re length==============', c1.configs.length);
 const fs = require('fs');
 fs.writeFileSync(s1, JSON.stringify(c1));
+console.log(`write to ${s1} done`, c1.configs.length);
