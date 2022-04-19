@@ -19,21 +19,21 @@ try {
   console.log('c2==============', c2.configs.length);
   c1.configs = c1.configs.concat(c2.configs)
   if (!s1 || !c1.configs || !c1.configs.length) echoHelp(1);
+
+  let s = new Set();
+  c1.configs = c1.configs.filter(u => {
+    const { password, server, server_port } = u;
+    let key = `${server}#${server_port}` // #${password}
+    if (s.has(key)) { return false; }
+    else { s.add(key) }
+    return true;
+  })
+
+  console.log('re path==============', s1);
+  console.log('re length==============', c1.configs.length);
+  const fs = require('fs');
+  fs.writeFileSync(s1, JSON.stringify(c1));
+  console.log(`write to ${s1} done`, c1.configs.length);
 } catch (error) {
   echoHelp(1, error);
 }
-
-let s = new Set();
-c1.configs = c1.configs.filter(u => {
-  const { password, server, server_port } = u;
-  let key = `${server}#${server_port}` // #${password}
-  if (s.has(key)) { return false; }
-  else { s.add(key) }
-  return true;
-})
-
-console.log('re path==============', s1);
-console.log('re length==============', c1.configs.length);
-const fs = require('fs');
-fs.writeFileSync(s1, JSON.stringify(c1));
-console.log(`write to ${s1} done`, c1.configs.length);
